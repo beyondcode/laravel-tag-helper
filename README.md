@@ -213,6 +213,27 @@ class CustomLink extends Helper
 
 ## Built-In Helpers
 
+This package ships with a couple useful tag helpers out of the box.
+
+### CSRF Helper
+
+Just add a `csrf` attribute to any `form` element to automatically add the Laravel CSRF field to it.
+
+```html
+<form csrf method="post">
+
+</form>
+```
+
+Will become:
+
+
+```html
+<form csrf method="post">
+    <input type="hidden" name="_token" value="csrf-token">    
+</form>
+```
+
 
 ### Testing
 
