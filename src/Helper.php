@@ -23,5 +23,4 @@ abstract class Helper
     }
 
     abstract public function process(HtmlElement $element);
-
 }

@@ -2,13 +2,12 @@
 
 namespace BeyondCode\TagHelper\Tests;
 
-use BeyondCode\TagHelper\Exceptions\InvalidHelperGiven;
 use BeyondCode\TagHelper\Facades\TagHelper;
+use BeyondCode\TagHelper\Exceptions\InvalidHelperGiven;
 use BeyondCode\TagHelper\Tests\Compilation\Tags\RegularTag;
 
 class RegistrationTest extends TestCase
 {
-
     /** @test */
     public function it_can_register_tag_helpers()
     {
@@ -26,5 +25,4 @@ class RegistrationTest extends TestCase
 
         TagHelper::helper(TagHelper::class);
     }
-
 }

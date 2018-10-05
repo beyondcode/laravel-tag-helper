@@ -7,7 +7,6 @@ use BeyondCode\TagHelper\Html\HtmlElement;
 
 class CsrfHelper extends Helper
 {
-
     protected $targetAttribute = 'csrf';
 
     protected $targetElement = 'form';

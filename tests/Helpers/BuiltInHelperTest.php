@@ -7,7 +7,6 @@ use BeyondCode\TagHelper\Tests\TestCase;
 
 class BuiltInHelperTest extends TestCase
 {
-
     public function setUp()
     {
         parent::setUp();
@@ -30,7 +29,8 @@ class BuiltInHelperTest extends TestCase
     /** @test */
     public function it_generates_links()
     {
-        \Route::name('some_route')->get('/some_route', function() {});
+        \Route::name('some_route')->get('/some_route', function () {
+        });
 
         $this->assertPhpMatchesViewSnapshot('link_to_route');
     }
@@ -38,9 +38,9 @@ class BuiltInHelperTest extends TestCase
     /** @test */
     public function it_generates_links_with_route_parameters()
     {
-        \Route::name('route_with_parameters')->get('/route/{a}/{b}', function() {});
+        \Route::name('route_with_parameters')->get('/route/{a}/{b}', function () {
+        });
 
         $this->assertPhpMatchesViewSnapshot('link_to_route_with_parameters');
     }
-
 }

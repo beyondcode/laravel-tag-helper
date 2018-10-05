@@ -3,11 +3,10 @@
 namespace BeyondCode\TagHelper\Tests;
 
 use BeyondCode\TagHelper\TagHelper;
-use Illuminate\Support\Facades\Blade;
 use Spatie\Snapshots\MatchesSnapshots;
 use Illuminate\Support\Facades\Artisan;
-use BeyondCode\TagHelper\TagHelperServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use BeyondCode\TagHelper\TagHelperServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
