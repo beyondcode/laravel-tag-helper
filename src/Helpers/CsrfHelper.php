@@ -15,6 +15,6 @@ class CsrfHelper extends Helper
     {
         $element->removeAttribute('csrf');
 
-        $element->appendInnerText(csrf_field());
+        $element->appendInnerText('{{ @csrf_field() }}');
     }
 }
