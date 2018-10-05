@@ -180,6 +180,37 @@ class CustomLink extends Helper
 }
 ```
 
+### Passing variables to your tag helpers
+
+If you want to pass view data / global method results into your tag helpers, you can use a colon as a prefix for your attribute data.
+Everything inside these colons will be evaluated by PHP and the result is available to your tag helper: 
+
+```html
+<div :view-data="$myViewVariable"></div>
+```
+
+You can then access this data, using the `getAttribute` method inside your helper:
+
+```php
+<?php
+
+namespace BeyondCode\TagHelper\Helpers;
+
+use BeyondCode\TagHelper\Helper;
+use BeyondCode\TagHelper\Html\HtmlElement;
+
+class CustomLink extends Helper
+{
+    protected $targetAttribute = 'view-data';
+    protected $targetElement = 'div';
+
+    public function process(HtmlElement $element)
+    {
+        $element->getAttribute('view-data');
+    }
+}
+```
+
 ## Built-In Helpers
 
 
