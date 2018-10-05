@@ -67,6 +67,7 @@ class TagHelperCompiler
         $selector = $tagHelper->getTargetElement();
         if (!is_null($tagHelper->getTargetAttribute())) {
             $selector .= "[{$tagHelper->getTargetAttribute()}]";
+            $selector .= ", {$tagHelper->getTargetElement()}[:{$tagHelper->getTargetAttribute()}]";
         }
 
         return $selector;
@@ -76,7 +77,7 @@ class TagHelperCompiler
     {
         $html = HtmlDomParser::str_get_html($viewContents, $lowercase=true, $forceTagsClosed=true, $target_charset = DEFAULT_TARGET_CHARSET, $stripRN=false);
 
-        $elements = $html->find($this->getTagSelector($tagHelper));
+        $elements = array_reverse($html->find($this->getTagSelector($tagHelper)));
 
         foreach ($elements as $element) {
             $tagHelper->process(HtmlElement::create($element, $this->view->getData()));

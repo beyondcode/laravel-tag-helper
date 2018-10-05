@@ -41,13 +41,15 @@ class HtmlElement
         return $result;
     }
 
-    public function getAttribute(string $attribute)
+    public function getAttribute(string $attribute, $default = null)
     {
         if ($this->domNode->hasAttribute(':'.$attribute)) {
-            return $this->getParsedAttribute($this->domNode->getAttribute(':'.$attribute));
+            $attribute = $this->getParsedAttribute($this->domNode->getAttribute(':'.$attribute));
+        } else {
+            $attribute = $this->domNode->getAttribute($attribute);
         }
 
-        return $this->domNode->getAttribute($attribute);
+        return $attribute === false ? $default : $attribute;
     }
 
     public function setAttribute(string $attribute, string $value)
@@ -71,6 +73,11 @@ class HtmlElement
     public function setInnerText(string $text)
     {
         $this->domNode->innertext = $text;
+    }
+
+    public function getPlainText(): string
+    {
+        return $this->domNode->text();
     }
 
     public function prependInnerText(string $prepend)
