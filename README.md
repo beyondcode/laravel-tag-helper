@@ -36,10 +36,41 @@ The package will automatically register itself.
 
 ## Usage
 
-``` php
-$skeleton = new BeyondCode\TagHelper();
-echo $skeleton->echoPhrase('Hello, BeyondCode!');
+You can create your own Tag Helper, by creating a new class and extend from the `BeyondCode\TagHelper\Helper` class.
+Within this class you can define on which HTML elements and attributes your helper should be triggered:
+
+```php
+<?php
+
+namespace BeyondCode\TagHelper\Helpers;
+
+use BeyondCode\TagHelper\Helper;
+use BeyondCode\TagHelper\Html\HtmlElement;
+
+class CustomTagHelper extends Helper
+{
+    protected $targetAttribute = 'custom';
+
+    protected $targetElement = 'div';
+
+    public function process(HtmlElement $element)
+    {
+        // Manipulate the DOM element
+    }
+}
+
 ```
+
+To use and apply this tag helper, you need to register it. Typically you would do this in the `AppServiceProvider boot()` method or a service provider of your own.
+
+```php
+TagHelper::helper(CustomTagHelper::class);
+```
+
+Since you only register the class name of the custom tag helper, you can use dependency injection inside of your custom helper class.
+
+## Built-In Helpers
+
 
 ### Testing
 
