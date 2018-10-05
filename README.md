@@ -253,6 +253,19 @@ Will become:
 </form>
 ```
 
+### Link
+
+When your `a` tags contains a `route` attribute, this helper will change the href to the appropriate route.
+You can also provide a `route-parameters` attribute, to pass additional parameters to the route generation.
+
+Examples:
+```html
+<a route="home">Home</a>
+
+<a route="profile" :route-parameters="[$user->id()]">Home</a>
+
+```
+
 
 ### Testing
 
