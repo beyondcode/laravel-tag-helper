@@ -89,6 +89,97 @@ This tag helper would be called for every HTML element that has a `my-attribute`
 
 ### Manipulating DOM Elements
 
+Once your tag helper successfully matches one or multiple HTML elements, the `process` method of your tag helper will be called.
+
+Inside of this method, you can manipulate the HTML element.
+
+Available features:
+
+#### Changing the HTML element tag
+
+In this example, we are binding our helper to HTML elements `<my-custom-link href="/"></my-custom-link>`. In the process method, we can then change the tag internally to `a` to render this as a link.
+
+```php
+<?php
+
+namespace BeyondCode\TagHelper\Helpers;
+
+use BeyondCode\TagHelper\Helper;
+use BeyondCode\TagHelper\Html\HtmlElement;
+
+class CustomLink extends Helper
+{
+    protected $targetElement = 'my-custom-link';
+
+    public function process(HtmlElement $element)
+    {
+        $element->setTag('a');
+    }
+}
+```
+
+#### Manipulating Attributes
+
+You can also add, edit or delete HTML element attributes.
+
+In this example, we are binding our helper to all link tags that have a custom `route` attribute.
+We then update the `href` attribute of our link, remove the `route` attribute and add a new `title` attribute. 
+
+```php
+<?php
+
+namespace BeyondCode\TagHelper\Helpers;
+
+use BeyondCode\TagHelper\Helper;
+use BeyondCode\TagHelper\Html\HtmlElement;
+
+class CustomLink extends Helper
+{
+    protected $targetAttribute = 'route';
+    
+    protected $targetElement = 'a';
+
+    public function process(HtmlElement $element)
+    {
+        $element->setAttribute('href', route($element->getAttribute('route')));
+        
+        $element->removeAttribute('route');
+        
+        $element->setAttribute('title', 'This is a link.');
+    }
+}
+```
+
+#### Manipulating Outer / Inner Text
+
+Your custom tag helpers can you manipulate the HTML that is inside or outside of the current element. 
+
+```php
+<?php
+
+namespace BeyondCode\TagHelper\Helpers;
+
+use BeyondCode\TagHelper\Helper;
+use BeyondCode\TagHelper\Html\HtmlElement;
+
+class CustomLink extends Helper
+{
+    protected $targetAttribute = 'add-hidden-field';
+    
+    protected $targetElement = 'form';
+
+    public function process(HtmlElement $element)
+    {
+        $element->removeAttribute('add-hidden-field');
+        
+        $element->appendInnerText('<input type="hidden" name="hidden" />');
+        
+        // $element->prependInnerText('');
+        // $element->setInnerText('');
+    }
+}
+```
+
 ## Built-In Helpers
 
 
