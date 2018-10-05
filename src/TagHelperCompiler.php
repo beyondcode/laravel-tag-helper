@@ -2,14 +2,13 @@
 
 namespace BeyondCode\TagHelper;
 
-use BeyondCode\TagHelper\Html\HtmlElement;
 use Illuminate\View\View;
 use Sunra\PhpSimple\HtmlDomParser;
 use Illuminate\Filesystem\Filesystem;
+use BeyondCode\TagHelper\Html\HtmlElement;
 
 class TagHelperCompiler
 {
-
     /** @var TagHelper */
     protected $tagHelper;
 
@@ -40,7 +39,7 @@ class TagHelperCompiler
     {
         $this->view = $view;
 
-        $compiled = sys_get_temp_dir() . '/' . $view->name();
+        $compiled = sys_get_temp_dir().'/'.$view->name();
 
         if (! $this->needsToBeRecompiled($view->getPath(), $compiled)) {
             return;
@@ -54,7 +53,7 @@ class TagHelperCompiler
 
         file_put_contents($compiled, $viewContent);
 
-        /**
+        /*
          * Lets update the file timestamp so that view caching still works.
          */
         touch($compiled, $this->files->lastModified($view->getPath()));
@@ -65,7 +64,7 @@ class TagHelperCompiler
     protected function getTagSelector(Helper $tagHelper): string
     {
         $selector = $tagHelper->getTargetElement();
-        if (!is_null($tagHelper->getTargetAttribute())) {
+        if (! is_null($tagHelper->getTargetAttribute())) {
             $selector .= "[{$tagHelper->getTargetAttribute()}]";
             $selector .= ", {$tagHelper->getTargetElement()}[:{$tagHelper->getTargetAttribute()}]";
         }
@@ -75,7 +74,7 @@ class TagHelperCompiler
 
     protected function parseHtml(string $viewContents, Helper $tagHelper)
     {
-        $html = HtmlDomParser::str_get_html($viewContents, $lowercase=true, $forceTagsClosed=true, $target_charset = DEFAULT_TARGET_CHARSET, $stripRN=false);
+        $html = HtmlDomParser::str_get_html($viewContents, $lowercase = true, $forceTagsClosed = true, $target_charset = DEFAULT_TARGET_CHARSET, $stripRN = false);
 
         $elements = array_reverse($html->find($this->getTagSelector($tagHelper)));
 
@@ -85,5 +84,4 @@ class TagHelperCompiler
 
         return $html;
     }
-
 }

@@ -7,7 +7,6 @@ use BeyondCode\TagHelper\Html\HtmlElement;
 
 class FormMethodHelper extends Helper
 {
-
     protected $targetAttribute = 'method';
 
     protected $targetElement = 'form';

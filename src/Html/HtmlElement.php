@@ -2,8 +2,8 @@
 
 namespace BeyondCode\TagHelper\Html;
 
-use BeyondCode\TagHelper\Exceptions\InvalidTagAttribute;
 use simplehtmldom_1_5\simple_html_dom_node;
+use BeyondCode\TagHelper\Exceptions\InvalidTagAttribute;
 
 class HtmlElement
 {
@@ -82,12 +82,12 @@ class HtmlElement
 
     public function prependInnerText(string $prepend)
     {
-        $this->setInnerText($prepend . $this->getInnerText());
+        $this->setInnerText($prepend.$this->getInnerText());
     }
 
     public function appendInnerText(string $append)
     {
-        $this->setInnerText($this->getInnerText() . $append);
+        $this->setInnerText($this->getInnerText().$append);
     }
 
     public function getOuterText(): string
@@ -105,16 +105,18 @@ class HtmlElement
         $this->domNode->tag = $tag;
     }
 
-    public function __call($method, $args) {
-        return call_user_func_array(array($this->domNode, $method), $args);
+    public function __call($method, $args)
+    {
+        return call_user_func_array([$this->domNode, $method], $args);
     }
 
-    public function __get($key) {
+    public function __get($key)
+    {
         return $this->domNode->$key;
     }
 
-    public function __set($key, $val) {
+    public function __set($key, $val)
+    {
         return $this->domNode->$key = $val;
     }
-
 }

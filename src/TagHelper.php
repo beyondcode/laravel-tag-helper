@@ -6,13 +6,14 @@ use BeyondCode\TagHelper\Exceptions\InvalidHelperGiven;
 
 class TagHelper
 {
-
     /** @var array */
     public $registeredTagHelpers = [];
 
     public function getRegisteredTagHelpers(): array
     {
-        return array_map(function ($helper) { return app($helper); }, $this->registeredTagHelpers);
+        return array_map(function ($helper) {
+            return app($helper);
+        }, $this->registeredTagHelpers);
     }
 
     public function helper(string $helper)
@@ -23,5 +24,4 @@ class TagHelper
 
         $this->registeredTagHelpers[] = $helper;
     }
-
 }

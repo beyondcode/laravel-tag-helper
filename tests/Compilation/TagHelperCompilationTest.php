@@ -13,7 +13,6 @@ use BeyondCode\TagHelper\Tests\Compilation\Tags\AttributeTag;
 
 class TagHelperCompilationTest extends TestCase
 {
-
     public function setUp()
     {
         parent::setUp();
@@ -86,5 +85,4 @@ class TagHelperCompilationTest extends TestCase
 
         view('views.invalid_data')->render();
     }
-
 }
