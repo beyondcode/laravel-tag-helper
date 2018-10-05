@@ -26,7 +26,6 @@ class TagHelperCompiler
 
     public function needsToBeRecompiled($path, $compiled)
     {
-        return true;
         if (! $this->files->exists($compiled)) {
             return true;
         }
