@@ -69,6 +69,26 @@ TagHelper::helper(CustomTagHelper::class);
 
 Since you only register the class name of the custom tag helper, you can use dependency injection inside of your custom helper class.
 
+### Binding your helper to HTML elements and attributes
+
+In your custom tag helper, you can use the `$targetAttribute` and `$targetElement` properties to specify which HTML element (`div`, `form`, `a`, etc.) and which attributes (`<div custom="value />`, `<form method="post">`, etc.) you want to bind this helper to.
+
+If you do not provide a `targetElement` on your own, this package will use a `*` as a wildcard in order to target **all** elements with a specific attribute, like this:
+
+```php
+class CustomTagHelper extends Helper
+{
+    protected $targetAttribute = 'my-attribute';
+    
+    // ...
+    
+}
+```
+
+This tag helper would be called for every HTML element that has a `my-attribute` attribute.
+
+### Manipulating DOM Elements
+
 ## Built-In Helpers
 
 
