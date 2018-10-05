@@ -1,0 +1,34 @@
+<?php
+
+namespace BeyondCode\TagHelper;
+
+use View;
+use BeyondCode\TagHelper\Helpers\CsrfHelper;
+use BeyondCode\TagHelper\Helpers\LinkHelper;
+use Illuminate\Support\ServiceProvider;
+
+class TagHelperServiceProvider extends ServiceProvider
+{
+    /**
+     * Register the application services.
+     */
+    public function register()
+    {
+        $this->app->singleton(TagHelper::class);
+
+        $this->app->alias(TagHelper::class, 'tag-helper');
+    }
+
+    /**
+     * Bootstrap the application services.
+     */
+    public function boot()
+    {
+        View::composer('*', function ($view) {
+            $this->app[TagHelperCompiler::class]->compile($view);
+        });
+
+        $this->app['tag-helper']->helper(LinkHelper::class);
+        $this->app['tag-helper']->helper(CsrfHelper::class);
+    }
+}

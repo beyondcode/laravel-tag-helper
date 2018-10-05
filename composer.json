@@ -1,0 +1,56 @@
+{
+    "name": "beyondcode/laravel-tag-helper",
+    "description": "Add powerful HTML tag helpers to your Laravel application",
+    "keywords": [
+        "beyondcode",
+        "laravel-tag-helper"
+    ],
+    "homepage": "https://github.com/beyondcode/laravel-tag-helper",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marcel Pociot",
+            "email": "marcel@beyondco.de",
+            "homepage": "https://beyondcode.de",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/view": "~5.5.0|~5.6.0|~5.7.0",
+        "sunra/php-simple-html-dom-parser": "^1.5"
+    },
+    "require-dev": {
+        "orchestra/testbench": "~3.5.0|~3.6.0|~3.7.0",
+        "phpunit/phpunit": "^7.3",
+        "spatie/phpunit-snapshot-assertions": "^1.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "BeyondCode\\TagHelper\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BeyondCode\\TagHelper\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BeyondCode\\TagHelper\\TagHelperServiceProvider"
+            ],
+            "aliases": {
+                "TagHelper": "BeyondCode\\TagHelper\\TagHelperFacade"
+            }
+        }
+    }
+}
