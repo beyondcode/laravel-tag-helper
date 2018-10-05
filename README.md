@@ -233,6 +233,24 @@ Will become:
     <input type="hidden" name="_token" value="csrf-token">    
 </form>
 ```
+### Form Method Helper
+
+When your `form` contains a `method` other then `GET` or `POST`, the helper will automatically add a `_method` hidden field with the correct value to your form.
+
+```html
+<form method="delete">
+
+</form>
+```
+
+Will become:
+
+
+```html
+<form method="post">
+    <input type="hidden" name="_method" value="DELETE">    
+</form>
+```
 
 
 ### Testing
