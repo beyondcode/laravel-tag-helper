@@ -3,7 +3,6 @@
 namespace BeyondCode\TagHelper\Html;
 
 use simplehtmldom_1_5\simple_html_dom_node;
-use BeyondCode\TagHelper\Exceptions\InvalidTagAttribute;
 
 class HtmlElement
 {
@@ -34,12 +33,12 @@ class HtmlElement
 
     public function getAttributeForBlade(string $attribute, $default = null)
     {
-        if ($this->domNode->hasAttribute(':' . $attribute)) {
-            return $this->getAttribute(':' . $attribute, $default);
+        if ($this->domNode->hasAttribute(':'.$attribute)) {
+            return $this->getAttribute(':'.$attribute, $default);
         }
         $attribute = $this->domNode->getAttribute($attribute);
 
-        return $attribute === false ? $default : "'" . $attribute . "'";
+        return $attribute === false ? $default : "'".$attribute."'";
     }
 
     public function setAttribute(string $attribute, string $value)
@@ -70,12 +69,12 @@ class HtmlElement
 
     public function prependInnerText(string $prepend)
     {
-        $this->setInnerText($prepend . $this->getInnerText());
+        $this->setInnerText($prepend.$this->getInnerText());
     }
 
     public function appendInnerText(string $append)
     {
-        $this->setInnerText($this->getInnerText() . $append);
+        $this->setInnerText($this->getInnerText().$append);
     }
 
     public function getOuterText(): string

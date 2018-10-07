@@ -15,7 +15,7 @@ class LinkHelper extends Helper
     {
         $element->setTag('a');
 
-        $element->href = '{{route('.$element->getAttributeForBlade('route').', '.$element->getAttributeForBlade('route-parameters', '[]'). ')}}';
+        $element->href = '{{route('.$element->getAttributeForBlade('route').', '.$element->getAttributeForBlade('route-parameters', '[]').')}}';
 
         $element->removeAttribute('route');
         $element->removeAttribute('route-parameters');
