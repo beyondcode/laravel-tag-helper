@@ -2,7 +2,6 @@
 
 namespace BeyondCode\TagHelper;
 
-use View;
 use Illuminate\Support\ServiceProvider;
 use BeyondCode\TagHelper\Helpers\CsrfHelper;
 use BeyondCode\TagHelper\Helpers\LinkHelper;
