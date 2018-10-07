@@ -320,7 +320,7 @@ Examples:
 ```html
 <a route="home">Home</a>
 
-<a route="profile" route-parameters="[$user->id()]">Home</a>
+<a route="profile" :route-parameters="[$user->id()]">Home</a>
 
 ```
 
