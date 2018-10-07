@@ -15,9 +15,6 @@ class TagHelperCompiler
     /** @var Filesystem */
     protected $files;
 
-    /** @var View */
-    protected $view;
-
     public function __construct(TagHelper $tagHelper, Filesystem $files)
     {
         $this->tagHelper = $tagHelper;
@@ -34,30 +31,13 @@ class TagHelperCompiler
             $this->files->lastModified($compiled);
     }
 
-    public function compile(View $view)
+    public function compile(string $viewContent)
     {
-        $this->view = $view;
-
-        $compiled = sys_get_temp_dir().'/'.$view->name();
-
-        if (! $this->needsToBeRecompiled($view->getPath(), $compiled)) {
-            return;
-        }
-
-        $viewContent = array_reduce(
+        return array_reduce(
             $this->tagHelper->getRegisteredTagHelpers(),
             [$this, 'parseHtml'],
-            file_get_contents($view->getPath())
+            $viewContent
         );
-
-        file_put_contents($compiled, $viewContent);
-
-        /*
-         * Lets update the file timestamp so that view caching still works.
-         */
-        touch($compiled, $this->files->lastModified($view->getPath()));
-
-        $view->setPath($compiled);
     }
 
     protected function getTagSelector(Helper $tagHelper): string
@@ -82,7 +62,7 @@ class TagHelperCompiler
         $elements = array_reverse($html->find($this->getTagSelector($tagHelper)));
 
         foreach ($elements as $element) {
-            $tagHelper->process(HtmlElement::create($element, $this->view->getData()));
+            $tagHelper->process(HtmlElement::create($element));
         }
 
         return $html;

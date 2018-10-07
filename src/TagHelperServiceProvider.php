@@ -25,8 +25,8 @@ class TagHelperServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('*', function ($view) {
-            $this->app[TagHelperCompiler::class]->compile($view);
+        $this->app['blade.compiler']->extend(function ($view) {
+            return $this->app[TagHelperCompiler::class]->compile($view);
         });
 
         $this->app['tag-helper']->helper(LinkHelper::class);

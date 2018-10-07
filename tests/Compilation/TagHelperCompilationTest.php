@@ -5,7 +5,6 @@ namespace BeyondCode\TagHelper\Tests\Compilation;
 use Illuminate\Support\Facades\View;
 use BeyondCode\TagHelper\Tests\TestCase;
 use BeyondCode\TagHelper\Facades\TagHelper;
-use BeyondCode\TagHelper\Exceptions\InvalidTagAttribute;
 use BeyondCode\TagHelper\Tests\Compilation\Tags\EmailTag;
 use BeyondCode\TagHelper\Tests\Compilation\Tags\RegularTag;
 use BeyondCode\TagHelper\Tests\Compilation\Tags\ViewDataTag;
@@ -74,16 +73,6 @@ class TagHelperCompilationTest extends TestCase
         TagHelper::helper(EmailTag::class);
 
         $this->assertMatchesViewSnapshot('change_tag');
-    }
-
-    /** @test */
-    public function it_throws_an_exception_when_view_data_is_invalid()
-    {
-        TagHelper::helper(ViewDataTag::class);
-
-        $this->expectException(InvalidTagAttribute::class);
-
-        view('views.invalid_data')->render();
     }
 
     /** @test */

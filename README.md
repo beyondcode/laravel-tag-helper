@@ -182,14 +182,18 @@ class CustomLink extends Helper
 
 ### Passing variables to your tag helpers
 
-If you want to pass view data / global method results into your tag helpers, you can use a colon as a prefix for your attribute data.
-Everything inside these colons will be evaluated by PHP and the result is available to your tag helper: 
+You can pass attribute values to your tag helpers  as you would usually pass attributes to HTML elements.
+Since the modifications of your tag helpers get cached, you should always return valid Blade template output in your modified attribute values.
+
+You can **not** directly access the variable content inside of your tag helper, but only get the attribute string representation.
+
+For example, to get the attribute value of the `method` attribute:
 
 ```html
-<div :view-data="$myViewVariable"></div>
+<form method="post"></form>
 ```
 
-You can then access this data, using the `getAttribute` method inside your helper:
+You can access this data, using the `getAttribute` method inside your helper:
 
 ```php
 <?php
@@ -199,17 +203,71 @@ namespace BeyondCode\TagHelper\Helpers;
 use BeyondCode\TagHelper\Helper;
 use BeyondCode\TagHelper\Html\HtmlElement;
 
-class CustomLink extends Helper
+class CustomForm extends Helper
 {
-    protected $targetAttribute = 'view-data';
-    protected $targetElement = 'div';
+    protected $targetElement = 'form';
 
     public function process(HtmlElement $element)
     {
-        $element->getAttribute('view-data');
+        $formMethod = $element->getAttribute('method');
     }
 }
 ```
+
+If you want to write Blade output, you sometimes need to know if the user passed a variable or function call, or a string value.
+To tell the difference, users can pass variable data by prefixing the attribute using a colon.
+
+If you want to output this attribute into a blade template, you can then use the `getAttributeForBlade` method and it will 
+either give you an escaped string representation of the attribute - or the unescaped representation, in case it got prefixed by a colon.
+
+For example:
+
+```html
+<a route="home">Home</a>
+```
+
+```php
+<?php
+
+namespace BeyondCode\TagHelper\Helpers;
+
+use BeyondCode\TagHelper\Helper;
+use BeyondCode\TagHelper\Html\HtmlElement;
+
+class CustomForm extends Helper
+{
+    protected $targetElement = 'a';
+
+    protected $targetAttribute = 'route';
+
+    public function process(HtmlElement $element)
+    {
+        $element->setAttribute('href', "{{ route(" . $element->getAttributeForBlade('route') . ") }}");
+        
+        $element->removeAttribute('route');
+    }
+}
+```
+
+This will output:
+
+```html
+<a href="{{ route('home') }}">Home</a>
+```
+
+But if you pass a dynamic parameter like this:
+
+```html
+<a :route="$routeVariable">Home</a>
+```
+
+This will output:
+
+```html
+<a href="{{ route($routeVariable) }}">Home</a>
+```
+
+This way you do not need to manually care about escaping and detecting dynamic variables.
 
 ## Built-In Helpers
 
@@ -262,7 +320,7 @@ Examples:
 ```html
 <a route="home">Home</a>
 
-<a route="profile" :route-parameters="[$user->id()]">Home</a>
+<a route="profile" route-parameters="[$user->id()]">Home</a>
 
 ```
 

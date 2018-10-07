@@ -10,18 +10,14 @@ class HtmlElement
     /** @var simple_html_dom_node */
     protected $domNode;
 
-    /** @var array */
-    protected $viewData;
-
-    public static function create(simple_html_dom_node $node, array $viewData)
+    public static function create(simple_html_dom_node $node)
     {
-        return new static($node, $viewData);
+        return new static($node);
     }
 
-    public function __construct(simple_html_dom_node $domNode, array $viewData)
+    public function __construct(simple_html_dom_node $domNode)
     {
         $this->domNode = $domNode;
-        $this->viewData = $viewData;
     }
 
     public function hasAttribute(string $attribute): bool
@@ -29,27 +25,21 @@ class HtmlElement
         return $this->domNode->hasAttribute($attribute);
     }
 
-    protected function getParsedAttribute(string $attributeValue)
-    {
-        try {
-            extract($this->viewData, EXTR_SKIP);
-            $result = eval('return '.$attributeValue.';');
-        } catch (\Throwable $e) {
-            throw InvalidTagAttribute::withAttribute($attributeValue);
-        }
-
-        return $result;
-    }
-
     public function getAttribute(string $attribute, $default = null)
     {
-        if ($this->domNode->hasAttribute(':'.$attribute)) {
-            $attribute = $this->getParsedAttribute($this->domNode->getAttribute(':'.$attribute));
-        } else {
-            $attribute = $this->domNode->getAttribute($attribute);
-        }
+        $attribute = $this->domNode->getAttribute($attribute);
 
         return $attribute === false ? $default : $attribute;
+    }
+
+    public function getAttributeForBlade(string $attribute, $default = null)
+    {
+        if ($this->domNode->hasAttribute(':' . $attribute)) {
+            return $this->getAttribute(':' . $attribute, $default);
+        }
+        $attribute = $this->domNode->getAttribute($attribute);
+
+        return $attribute === false ? $default : "'" . $attribute . "'";
     }
 
     public function setAttribute(string $attribute, string $value)
@@ -59,10 +49,8 @@ class HtmlElement
 
     public function removeAttribute(string $attribute)
     {
-        if ($this->domNode->hasAttribute(':'.$attribute)) {
-            $this->domNode->setAttribute(':'.$attribute, null);
-        }
         $this->domNode->setAttribute($attribute, null);
+        $this->domNode->setAttribute(':'.$attribute, null);
     }
 
     public function getInnerText(): string
@@ -82,12 +70,12 @@ class HtmlElement
 
     public function prependInnerText(string $prepend)
     {
-        $this->setInnerText($prepend.$this->getInnerText());
+        $this->setInnerText($prepend . $this->getInnerText());
     }
 
     public function appendInnerText(string $append)
     {
-        $this->setInnerText($this->getInnerText().$append);
+        $this->setInnerText($this->getInnerText() . $append);
     }
 
     public function getOuterText(): string
