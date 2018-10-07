@@ -75,6 +75,10 @@ class TagHelperCompiler
     {
         $html = HtmlDomParser::str_get_html($viewContents, $lowercase = true, $forceTagsClosed = true, $target_charset = DEFAULT_TARGET_CHARSET, $stripRN = false);
 
+        if ($html === false) {
+            return $viewContents;
+        }
+
         $elements = array_reverse($html->find($this->getTagSelector($tagHelper)));
 
         foreach ($elements as $element) {

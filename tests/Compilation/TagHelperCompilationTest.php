@@ -85,4 +85,10 @@ class TagHelperCompilationTest extends TestCase
 
         view('views.invalid_data')->render();
     }
+
+    /** @test */
+    public function it_compiles_empty_views()
+    {
+        $this->assertPhpMatchesViewSnapshot('empty');
+    }
 }
