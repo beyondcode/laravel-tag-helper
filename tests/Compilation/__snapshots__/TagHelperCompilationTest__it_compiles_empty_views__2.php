@@ -1,1 +1,3 @@
-<?php return '<div></div>';
+<?php
+
+return '<div></div>';

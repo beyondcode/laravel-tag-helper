@@ -1,4 +1,6 @@
-<?php return '<div><div>
+<?php
+
+return '<div><div>
     <form action="/" method="post">
         <input type="text" name="login" />
         <input type="password" name="password" />

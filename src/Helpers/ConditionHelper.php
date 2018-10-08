@@ -20,6 +20,5 @@ class ConditionHelper extends Helper
         $outerText .= ' @endif';
 
         $element->setOuterText($outerText);
-
     }
 }
