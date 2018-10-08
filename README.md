@@ -287,7 +287,7 @@ Will become:
 
 
 ```html
-<form csrf method="post">
+<form method="post">
     <input type="hidden" name="_token" value="csrf-token">    
 </form>
 ```
