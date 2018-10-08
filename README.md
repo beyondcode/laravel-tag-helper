@@ -278,7 +278,7 @@ This package ships with a couple useful tag helpers out of the box.
 Just add a `csrf` attribute to any `form` element to automatically add the Laravel CSRF field to it.
 
 ```html
-<form method="post">
+<form csrf method="post">
 
 </form>
 ```
