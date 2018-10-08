@@ -64,7 +64,7 @@ class TagHelperCompilationTest extends TestCase
     {
         TagHelper::helper(RegularTag::class);
 
-        $this->assertPhpMatchesViewSnapshot('invalid_html');
+        $this->assertMatchesViewSnapshot('invalid_html');
     }
 
     /** @test */
@@ -78,6 +78,6 @@ class TagHelperCompilationTest extends TestCase
     /** @test */
     public function it_compiles_empty_views()
     {
-        $this->assertPhpMatchesViewSnapshot('empty');
+        $this->assertMatchesViewSnapshot('empty');
     }
 }

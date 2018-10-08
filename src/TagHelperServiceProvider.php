@@ -2,6 +2,9 @@
 
 namespace BeyondCode\TagHelper;
 
+use BeyondCode\TagHelper\Helpers\ConditionHelper;
+use BeyondCode\TagHelper\Helpers\AuthHelper;
+use BeyondCode\TagHelper\Helpers\GuestHelper;
 use Illuminate\Support\ServiceProvider;
 use BeyondCode\TagHelper\Helpers\CsrfHelper;
 use BeyondCode\TagHelper\Helpers\LinkHelper;
@@ -31,5 +34,8 @@ class TagHelperServiceProvider extends ServiceProvider
         $this->app['tag-helper']->helper(LinkHelper::class);
         $this->app['tag-helper']->helper(FormMethodHelper::class);
         $this->app['tag-helper']->helper(CsrfHelper::class);
+        $this->app['tag-helper']->helper(ConditionHelper::class);
+        $this->app['tag-helper']->helper(AuthHelper::class);
+        $this->app['tag-helper']->helper(GuestHelper::class);
     }
 }
