@@ -25,6 +25,5 @@ class AuthHelper extends Helper
         $outerText .= ' @endauth';
 
         $element->setOuterText($outerText);
-
     }
 }

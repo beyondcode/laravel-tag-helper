@@ -25,6 +25,5 @@ class GuestHelper extends Helper
         $outerText .= ' @endguest';
 
         $element->setOuterText($outerText);
-
     }
 }

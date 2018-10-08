@@ -1,4 +1,6 @@
-<?php return '<div><div>
+<?php
+
+return '<div><div>
     <div>Processed</div>
     <span>Processed</span>
     <form>

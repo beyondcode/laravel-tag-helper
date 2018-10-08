@@ -1,4 +1,6 @@
-<?php return '<div><div>
+<?php
+
+return '<div><div>
     <div>
         Level 1
         <div>
