@@ -292,6 +292,24 @@ Will become:
 </form>
 ```
 
+#### Caveats
+
+`csrf` needs to be in a line with another attribute.
+
+```php
+// this works
+<form
+    csrf action="/posts"
+    class="mt-8>
+    
+// this doesn't work
+<form
+    csrf
+    action="/posts"
+    class="mt-8>
+    
+```
+
 ### Form Method Helper
 
 When your `form` contains a `method` other then `GET` or `POST`, the helper will automatically add a `_method` hidden field with the correct value to your form.
