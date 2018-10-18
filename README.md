@@ -10,18 +10,18 @@ This package allows you to register custom "tag helpers" in your Laravel applica
 For example, instead of this:
 
 ```html
-<form csrf method="delete">
-
-</form> 
+<form method="post">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="csrf-token">    
+</form>
 ```
 
 You can use custom tag helpers to turn this code into this:
 
 ```html
-<form method="post">
-    <input type="hidden" name="_method" value="DELETE">
-    <input type="hidden" name="_token" value="csrf-token">    
-</form>
+<form csrf method="delete">
+
+</form> 
 ```
 
 ## Installation
